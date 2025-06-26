@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deep Computers</title>
+
+  <style>
+    /* ====== Root Variables ====== */
+    :root {
+      --primary-color: #0071e3;
+      --primary-hover: #005bb5;
+      --bg-light: #f5f7fa;
+      --bg-dark: #121212;
+      --text-light: #fff;
+      --text-dark: #222;
+      --card-bg-light: #fff;
+      --card-bg-dark: #1e1e1e;
+      --shadow-light: rgba(0,0,0,0.1);
+      --shadow-dark: rgba(0,0,0,0.7);
+    }
+
+    /* ====== Global Styles ====== */
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: none; /* hide for loader */
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: 600;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 16px;
+      background-color: var(--primary-color);
+      color: white;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: var(--primary-hover);
+    }
+
+    
+    /* ====== Header & Nav ====== */
+    header {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+    }
+    nav.main-nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    nav.main-nav a {
+      color: var(--text-light);
+      font-weight: 600;
+      padding: 8px 15px;
+      border-radius: 5px;
+      background-color: transparent;
+      transition: background-color 0.3s;
+    }
+    nav.main-nav a:hover,
+    nav.main-nav a.active {
+      background-color: var(--primary-hover);
+    }
+
+    /* ====== Theme Switcher ====== */
+    .theme-switcher {
+      margin-left: auto;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .theme-switcher button {
+      background-color: transparent;
+      color: var(--text-light);
+      border: 2px solid var(--text-light);
+      padding: 5px 12px;
+      font-size: 1rem;
+      border-radius: 25px;
+      transition: all 0.3s;
+    }
+    .theme-switcher button:hover {
+      background-color: var(--text-light);
+      color: var(--primary-color);
+      border-color: var(--text-light);
+    }
+
+    /* ====== Hero Section ====== */
+    .hero {
+      background: linear-gradient(90deg, #0071e3 0%, #004ba0 100%);
+      color: var(--text-light);
+      padding: 60px 30px;
+      text-align: center;
+      border-radius: 0 0 30px 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      margin-bottom: 40px;
+    }
+    .hero h2 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.9;
+    }
+    .hero button {
+      font-size: 1.2rem;
+      padding: 14px 36px;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      font-weight: 700;
+    }
+    .hero button:hover {
+      background-color: #005bb5;
+      box-shadow: 0 6px 18px rgba(0,91,181,0.5);
+    }
+
+    /* ====== Main Content Container ====== */
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      padding: 0 20px;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    /* ====== Sidebar ====== */
+    aside.sidebar {
+      flex: 1 1 250px;
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      border-radius: 15px;
+      padding: 25px 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+      min-width: 220px;
+      height: fit-content;
+    }
+    aside.sidebar h3 {
+      margin-bottom: 25px;
+      font-weight: 900;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+    }
+    aside.sidebar ul li {
+      margin-bottom: 18px;
+    }
+    aside.sidebar ul li a {
+      color: var(--text-light);
+      font-weight: 600;
+      transition: opacity 0.3s;
+      display: inline-block;
+    }
+    aside.sidebar ul li a:hover {
+      opacity: 0.75;
+    }
+
+    /* ====== Products Grid ====== */
+    section.products {
+      flex: 3 1 700px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 25px;
+    }
+
+    /* Each Product Card */
+    article.product-card {
+      background-color: var(--card-bg-light);
+      border-radius: 15px;
+      box-shadow: 0 6px 14px var(--shadow-light);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+    }
+    article.product-card:hover {
+      box-shadow: 0 14px 28px var(--shadow-light);
+      transform: translateY(-8px);
+    }
+
+    /* Product image */
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background-color: #f9f9f9;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Product info */
+    .product-info {
+      padding: 15px 18px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-info h4 {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    .product-info p {
+      font-size: 0.95rem;
+      color: #555;
+      flex-grow: 1;
+      margin-bottom: 12px;
+    }
+    .price-cart {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .price {
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+    }
+    .add-to-cart {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+      border: none;
+    }
+    .add-to-cart:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* ====== Footer ====== */
+    footer {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 30px 20px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+    }
+    footer a {
+      color: var(--text-light);
+      margin: 0 10px;
+      font-weight: 700;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ====== Dark Mode Styles ====== */
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+    }
+    body.dark .product-card {
+      background-color: var(--card-bg-dark);
+      box-shadow: 0 6px 20px var(--shadow-dark);
+    }
+    body.dark .product-info h4,
+    body.dark .price {
+      color: #00c6ff;
+    }
+    body.dark header {
+      background-color: #004a99;
+    }
+    body.dark aside.sidebar {
+      background-color: #004a99;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
+    body.dark footer {
+      background-color: #004a99;
+    }
+    body.dark nav.main-nav a:hover,
+    body.dark nav.main-nav a.active {
+      background-color: #003366;
+    }
+    body.dark .theme-switcher button {
+      border-color: var(--text-light);
+      color: var(--text-light);
+    }
+    body.dark .theme-switcher button:hover {
+      background-color: var(--text-light);
+      color: #004a99;
+    }
+
+    /* ====== Responsive ====== */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        max-width: 90%;
+        margin-bottom: 40px;
+      }
+      aside.sidebar {
+        width: 100%;
+        margin-bottom: 30px;
+        border-radius: 15px;
+      }
+      section.products {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 20px;
+      }
+      .product-card img {
+        height: 140px;
+      }
+      header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      nav.main-nav {
+        justify-content: center;
+      }
+      .theme-switcher {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loader -->
+  <div id="loader">
+    
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>Deep Computer </h1>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html" class="active">Home</a>
+      <a href="about Journey.html">About Our Journey</a>
+      <a href="Services.html">Services </a>
+      <a href="acessories.html">Accessories</a>
+  
+    </nav>
+    <div class="theme-switcher" aria-label="Theme switcher">
+      <button aria-label="Light theme" onclick="setTheme('light')">☀️ Light</button>
+      <button aria-label="Dark theme" onclick="setTheme('dark')">🌙 Dark</button>
+      <button aria-label="Blue theme" onclick="setTheme('blue')">🔵 Blue</button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" aria-label="Promotional Banner">
+    <h2>Celebrating 20 Years of Innovation, Trust & Unmatched Customer Support Since 2062</h2>
+    <p>Find powerful laptops, cutting-edge components, and the best deals at Deep Computer Marmat kendra .</p>
+    <button onclick="alert('Shop Now Clicked!')">Shop Now</button>
+  </section>
+
+  <!-- Main content area -->
+  <div class="container" role="main">
+    <!-- Sidebar Categories -->
+    <aside class="sidebar" aria-label="Product categories">
+      <h3>Categories</h3>
+      <ul>
+        <li><a href="#">Gaming Laptops</a></li>
+        <li><a href="#">Workstations</a></li>
+        <li><a href="#">Processors</a></li>
+        <li><a href="#">Graphic Cards</a></li>
+        <li><a href="#">Memory & Storage</a></li>
+        <li><a href="#">Peripherals</a></li>
+      </ul>
+    </aside>
+
+    <!-- Product Grid -->
+    <section class="products" aria-label="Product listings">
+
+      <article class="product-card" tabindex="0" role="article" aria-label="Gaming Laptop Product">
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80" alt="Gaming Laptop" />
+        <div class="product-info">
+          <h4>Ultimate Gaming Laptop</h4>
+          <p>16GB RAM, RTX 3060, 1TB SSD, 144Hz Display</p>
+          <div class="price-cart">
+            <span class="price">$1299</span>
+            <button class="add-to-cart" onclick="alert('Added Ultimate Gaming Laptop to cart')">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" tabindex="0" role="article" aria-label="Workstation Laptop Product">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Workstation Laptop" />
+        <div class="product-info">
+          <h4>Professional Workstation</h4>
+          <p>32GB RAM, Xeon Processor, 2TB NVMe SSD</p>
+          <div class="price-cart">
+            <span class="price">$2399</span>
+            <button class="add-to-cart" onclick="alert('Added Professional Workstation to cart')">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" tabindex="0" role="article" aria-label="Graphic Card Product">
+        <img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=400&q=80" alt="Graphic Card" />
+        <div class="product-info">
+          <h4>RTX 4080 Graphics Card</h4>
+          <p>Ultra high performance for gaming and rendering.</p>
+          <div class="price-cart">
+            <span class="price">$899</span>
+            <button class="add-to-cart" onclick="alert('Added RTX 4080 Graphics Card to cart')">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" tabindex="0" role="article" aria-label="Mechanical Keyboard Product">
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80" alt="Mechanical Keyboard" />
+        <div class="product-info">
+          <h4>RGB Mechanical Keyboard</h4>
+          <p>Customizable backlight with tactile switches.</p>
+          <div class="price-cart">
+            <span class="price">$129</span>
+            <button class="add-to-cart" onclick="alert('Added RGB Mechanical Keyboard to cart')">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" tabindex="0" role="article" aria-label="27 inch Monitor Product">
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80" alt="27 inch Monitor" />
+        <div class="product-info">
+          <h4>27” 4K Monitor</h4>
+          <p>Ultra HD resolution with HDR support.</p>
+          <div class="price-cart">
+            <span class="price">$399</span>
+            <button class="add-to-cart" onclick="alert('Added 27 inch 4K Monitor to cart')">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" tabindex="0" role="article" aria-label="Wireless Mouse Product">
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80" alt="Wireless Mouse" />
+        <div class="product-info">
+          <h4>Ergonomic Wireless Mouse</h4>
+          <p>Long battery life and precision tracking.</p>
+          <div class="price-cart">
+            <span class="price">$49</span>
+            <button class="add-to-cart" onclick="alert('Added Ergonomic Wireless Mouse to cart')">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Deep Computer Marmat Kendra Since 2062</p>
+    <p>
+      Follow us: 
+      <a href="https://www.facebook.com/profile.php?id=100054578375073" aria-label="Facebook">Facebook</a> |
+      
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Show page after loader for 4 seconds
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').style.display = 'none';
+        document.body.style.display = 'flex';
+      }, 4000);
+    });
+
+    // Theme switcher logic
+    function setTheme(mode) {
+      if(mode === 'dark') {
+        document.body.classList.add('dark');
+      } else if (mode === 'blue') {
+        document.body.classList.remove('dark');
+        document.documentElement.style.setProperty('--primary-color', '#0055cc');
+        document.documentElement.style.setProperty('--primary-hover', '#003d99');
+        document.documentElement.style.setProperty('--bg-light', '#e6f0ff');
+        document.documentElement.style.setProperty('--text-dark', '#003366');
+        document.documentElement.style.setProperty('--card-bg-light', '#cfe0ff');
+      } else { // light mode reset
+        document.body.classList.remove('dark');
+        document.documentElement.style.setProperty('--primary-color', '#0071e3');
+        document.documentElement.style.setProperty('--primary-hover', '#005bb5');
+        document.documentElement.style.setProperty('--bg-light', '#f5f7fa');
+        document.documentElement.style.setProperty('--text-dark', '#222');
+        document.documentElement.style.setProperty('--card-bg-light', '#fff');
+      }
+    }
+
+    // Start with light theme
+    setTheme('light');
+  </script>
+
+</body>
+</html>

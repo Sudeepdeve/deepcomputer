@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Deep Computer Store</title>
+
+  <style>
+    /* Root variables */
+    :root {
+      --primary-color: #0071e3;
+      --primary-hover: #005bb5;
+      --bg-light: #f5f7fa;
+      --text-dark: #222;
+      --text-light: #fff;
+      --card-bg-light: #fff;
+      --shadow-light: rgba(0,0,0,0.1);
+    }
+
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      font-weight: 900;
+      font-size: 1.8rem;
+      letter-spacing: 1.2px;
+    }
+    nav.main-nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    nav.main-nav a {
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      color: var(--text-light);
+    }
+    nav.main-nav a:hover,
+    nav.main-nav a.active {
+      background-color: var(--primary-hover);
+    }
+
+    /* Main container */
+    main {
+      flex: 1;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* About header */
+    .about-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .about-header h2 {
+      font-size: 2.8rem;
+      color: var(--primary-color);
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .about-header p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      color: #555;
+    }
+
+    /* Founder Section */
+    .founder-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+    .founder-img {
+      flex: 1 1 300px;
+      max-width: 320px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px var(--shadow-light);
+    }
+    .founder-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .founder-text {
+      flex: 2 1 500px;
+    }
+    .founder-text h3 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    .founder-text p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* Companies worked at */
+    .companies-section {
+      margin-bottom: 60px;
+    }
+    .companies-section h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    .companies-logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+    }
+    .company {
+      flex: 0 1 120px;
+      text-align: center;
+    }
+    .company img {
+      max-width: 100px;
+      max-height: 60px;
+      object-fit: contain;
+      filter: grayscale(50%);
+      transition: filter 0.3s;
+      cursor: pointer;
+    }
+    .company img:hover {
+      filter: none;
+    }
+    .company-name {
+      margin-top: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    /* Journey Timeline */
+    .journey-section {
+      max-width: 700px;
+      margin: 0 auto 80px;
+    }
+    .journey-section h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+      border-left: 4px solid var(--primary-color);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -14px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--primary-color);
+    }
+    .timeline-item h4 {
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: #333;
+    }
+    .timeline-item p {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 25px 20px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+    }
+    footer a {
+      color: var(--text-light);
+      margin: 0 10px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .founder-section {
+        flex-direction: column;
+      }
+      .founder-img, .founder-text {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Deep Computer </h1>
+    <nav class="main-nav" aria-label="Main navigation">
+    <a href="index.html" class="active">Home</a>
+      <a href="about Journey.html">About Our Journey</a>
+      <a href="Services.html">Services</a>
+      <a href="acessories.html">Accessories</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about-header" aria-label="About Deep Computer Store">
+      <h2>Our Journey</h2>
+      
+    </section>
+
+    <section class="founder-section" aria-label="Founder information">
+      <div class="founder-img">`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+        <!-- Replace src with your MD picture URL or local image -->
+        <img src="1.jpg" alt="Founder Photo" />
+      </div>
+      <div class="founder-text">
+        <h3>Deep Lal Lamichhane</h3>
+        <p>
+         I have had a strong interest in the IT industry since I was very young. I started enthusiastically investigating different facets of information technology in the year 2050 B.S. I had the chance to work on a variety of hardware, networking, and software development projects over the course of five to six years.
+
+My technical knowledge was solidified by these years of experience, which also motivated me to make a more significant contribution to the field. In 2062 B.S., I formally founded Deep Computer marmat kendra  is established with that drive and vision.
+
+Since its founding, our organization has stayed dedicated to offering modern technology, dependable service, and high-quality computer solutions to individuals, organizations, and businesses. We think that trust, creativity, and superior customer service are the keys to growth.
+        </p>
+      </div>
+    </section>
+
+    <section class="companies-section" aria-label="Companies founder worked at">
+      <h3>Companies Deep Computer  Has Worked With</h3>
+      <div class="companies-logos">
+        <!-- Replace these placeholders with real company logos and names -->
+        <div class="company">
+           <img src="logo 1.png">
+          <div class="company-name">Police Hospital and School </div>
+        </div>
+        <div class="company">
+          <img src="logo2.png" >
+          Commission for the investigation of abuse of authority
+          <div class="company-name"></div>
+        </div>
+        <div class="company" >
+          <img src="logo2.png">
+          <div class="company-name">Department of hydrology and Metrology </div>
+        </div>
+        <div class="company" >
+          <img src="4.jpg" alt="Intel Logo" />
+          <div class="company-name">Hill Point Secondary School</div>
+        </div>
+        <div class="company" title="HP">
+          <img src="images.png" alt="HP Logo" />
+          <div class="company-name">kaski Modernized  School</div>
+<br><br> And Many more institituions. 
+        </div>
+      </div>
+    </section>
+
+    <section class="journey-section" aria-label="Company journey timeline">
+      <h3>Milestones & Journey</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>2055 - Master's in Hardware Engineering</h4>
+          <p>I have been Completed Master In Hardware Engineering from India  in 2055. </p>
+        </div>
+        <div class="timeline-item">
+          <h4>2055-57 - Joined at Jet Kings</h4>
+          <p>Got the job on Jet Kings at India Deradhun .</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2057-62 - Joined Escol Nepal </h4>
+          <p>Shifted in nepal and worked as the Senior Branch Manager of the Company.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2062 - Founded Deep Computers </h4>
+          <p>Realized his dream by launching Deep Computers , bringing premium computing products to pokhara’s market.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>Till 2025 - Expansion & Growth</h4>
+          <p>Expanded product lines and online presence, earning trust and satisfaction of thousands of customers.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+ 
+      Follow us: 
+      <a href="https://www.facebook.com/profile.php?id=100054578375073" aria-label="Facebook">Facebook</a> |
+      
+    </p>
+  </footer>
+
+</body>
+</html>
